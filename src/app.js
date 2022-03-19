@@ -4,6 +4,7 @@ import pkg from "../package.json";
 
 import materiasRoutes from "./routes/materias.routers";
 
+// Creo la instancia del servidor express
 const app = express();
 
 // Express permite setear variables y luego recuperarlas
@@ -22,7 +23,7 @@ app.get("/", (req, res) => {
   });
 });
 
-// ruta para materias
+// rutas para materias
 app.use("/materias", materiasRoutes);
 
 export default app;

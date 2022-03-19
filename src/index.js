@@ -1,5 +1,5 @@
 import app from "./app";
-import { dbConnect } from "./database";
+import dbConnect from "./database";
 
 // Me conecto a la base de datos
 dbConnect();
