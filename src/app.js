@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import pkg from "../package.json";
 
+import { createRoles } from "./libs/inicialSetup";
 import materiasRoutes from "./routes/materias.routers";
 import authRoutes from "./routes/auth.routers";
 
@@ -9,6 +10,9 @@ const apiVer = "/api/v1";
 
 // Creo la instancia del servidor express
 const app = express();
+
+// Creo los roles la primera vez
+createRoles();
 
 // Express permite setear variables y luego recuperarlas
 app.set("pkg", pkg);
