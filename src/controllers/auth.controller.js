@@ -13,19 +13,44 @@ export const register = async (req = request, res = response) => {
     email,
     password: await User.encryptPassword(password),
   });
-  // ahora pregunto por las roles
+  // ahora pregunto por los roles
   if (roles) {
-    await Role.find({ name: { $in: roles } });
+    const foundRoles = await Role.find({ name: { $in: roles } });
+    newUser.roles = foundRoles.map((role) => role._id);
+  } else {
+    const userRole = await Role.findOne({ name: "user" });
+    console.log(userRole._id);
+    newUser.roles = [userRole._id];
   }
   const savedUser = await newUser.save();
   // Guardado el usuario en la BD ahora genero un JWT y se lo envio
   // la funcion recibe: 1- El contenido 2- Palabra secreta 3- Configuracion
+  // el token dura 6horas
   const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
-    expiresIn: "6h",
+    expiresIn: config.EXPIRE,
   });
-  res.json({ savedUser, token });
+  res.json({ token });
 };
 
 export const login = async (req = request, res = response) => {
-  res.json("register...");
+  const { email, password } = req.body;
+  // Busco el usuario
+  const userFound = await User.findOne({ email: email }).populate("roles");
+  if (!userFound) {
+    return res
+      .status(401)
+      .json({ token: null, message: "Credenciales invalidas" });
+  }
+  // Comparo las contraseñas
+  const matchPassword = await User.comparePassword(password, userFound.password);
+  if (!matchPassword) {
+    return res
+      .status(401)
+      .json({ token: null, message: "Credenciales invalidas" });
+  }
+  // Genero el token
+  const token = jwt.sign({ id: userFound._id }, config.SECRET, {
+    expiresIn: config.EXPIRE,
+  });
+  res.json({ token });
 };

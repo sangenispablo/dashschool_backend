@@ -12,7 +12,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    role: [
+    roles: [
       {
         ref: "Role",
         type: Schema.Types.ObjectId,
@@ -30,8 +30,8 @@ userSchema.statics.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
 };
-userSchema.statics.comparePassword = async (password, receivedPassword) => {
-  return await bcrypt.compare(password, receivedPassword);
+userSchema.statics.comparePassword = async (receivedPassword, password) => {
+  return await bcrypt.compare(receivedPassword, password);
 };
 
 export default model("User", userSchema);

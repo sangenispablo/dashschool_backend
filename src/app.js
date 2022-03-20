@@ -5,6 +5,7 @@ import pkg from "../package.json";
 import { createRoles } from "./libs/inicialSetup";
 import materiasRoutes from "./routes/materias.routers";
 import authRoutes from "./routes/auth.routers";
+import userRoutes from "./routes/user.routers";
 
 const apiVer = "/api/v1";
 
@@ -34,5 +35,6 @@ app.get("/", (req, res) => {
 // rutas del Rest API
 app.use(apiVer + "/materias", materiasRoutes);
 app.use(apiVer + "/auth", authRoutes);
+app.use(apiVer + "/users", userRoutes);
 
 export default app;
