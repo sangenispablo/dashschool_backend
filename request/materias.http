@@ -1,0 +1,11 @@
+###
+GET http://localhost:4000/api/v1/materias
+
+###
+POST http://localhost:4000/api/v1/materias
+Content-Type: application/json
+
+{
+    "nombre": "Matemática I",
+    "abreviatura": "MAT_I"
+}

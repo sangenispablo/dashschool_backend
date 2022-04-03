@@ -1,7 +1,14 @@
 import { request, response } from "express";
+import Materia from "../models/materia";
 
 export const createMateria = (req = request, res = response) => {
-  res.json("crear materia");
+  const { nombre, abreviatura } = req.body;
+  const nuevaMateria = new Materia({
+    nombre,
+    abreviatura,
+  });
+  console.log(nuevaMateria);
+  res.json("creando una materia en la BD");
 };
 
 export const getMaterias = (req = request, res = response) => {
