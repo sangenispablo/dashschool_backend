@@ -4,20 +4,18 @@ const materiaSchema = new Schema(
   {
     nombre: {
       type: String,
+      unique: true,
       required: true,
-      trim: true,
-      uppercase: true,
     },
     abreviatura: {
       type: String,
+      unique: true,
       required: true,
-      trim: true,
-      uppercase: true,
     },
   },
   {
-    versionKey: false,
     timestamps: true,
+    versionKey: false,
   }
 );
 

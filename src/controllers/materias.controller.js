@@ -1,13 +1,13 @@
 import { request, response } from "express";
 import Materia from "../models/materia";
 
-export const createMateria = (req = request, res = response) => {
+export const createMateria = async (req = request, res = response) => {
   const { nombre, abreviatura } = req.body;
   const nuevaMateria = new Materia({
     nombre,
     abreviatura,
   });
-  console.log(nuevaMateria);
+  const materiaGuardada = 
   res.json("creando una materia en la BD");
 };
 

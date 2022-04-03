@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import {
   createMateria,
   deleteMateriaById,
@@ -6,10 +7,11 @@ import {
   getMaterias,
   updateMateriaById,
 } from "../controllers/materias.controller";
+import { verifyToken, isAdmin } from "../middlewares";
 
 const router = Router();
 
-router.get("/", getMaterias);
+router.get("/", [verifyToken, isAdmin], getMaterias);
 router.post("/", createMateria);
 router.get("/:id", getMateriaById);
 router.put("/:id", updateMateriaById);
