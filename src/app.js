@@ -1,8 +1,12 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
+
 import pkg from "../package.json";
+import config from "./config";
 
 import { createRoles } from "./libs/inicialSetup";
+
 import materiasRoutes from "./routes/materias.routers";
 import authRoutes from "./routes/auth.routers";
 import userRoutes from "./routes/user.routers";
@@ -16,9 +20,11 @@ const app = express();
 createRoles();
 
 // Express permite setear variables y luego recuperarlas
+app.set("port", config.API_PORT);
 app.set("pkg", pkg);
 
 // middlewares
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
