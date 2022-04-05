@@ -1,37 +1,29 @@
 import { request, response } from "express";
-
-// importo el modelo que necesito
-import Materia from "../models/Materia";
+import Materia from "../models/materia";
 
 export const createMateria = async (req = request, res = response) => {
   const { nombre, abreviatura } = req.body;
-  const newMateria = new Materia({ nombre, abreviatura });
-  const materiaSaved = await newMateria.save();
-  res.status(201).json(materiaSaved);
-};
-
-export const getMaterias = async (req = request, res = response) => {
-  const materias = await Materia.find();
-  res.json(materias);
-};
-
-export const getMateriaById = async (req = request, res = response) => {
-  const id = req.params.id;
-  const materia = await Materia.findById(id);
-  res.json(materia);
-};
-
-export const updateMateriaById = async (req = request, res = response) => {
-  const id = req.params.id;
-  const materiaUpdate = await Materia.findByIdAndUpdate(id, req.body, {
-    new: true,
+  const nuevaMateria = new Materia({
+    nombre,
+    abreviatura,
   });
-  console.log(materiaUpdate);
-  res.json(materiaUpdate);
+  const materiaGuardada = 
+  res.json("creando una materia en la BD");
 };
 
-export const deleteMateriaById = async (req = request, res = response) => {
+export const getMaterias = (req = request, res = response) => {
+  res.json("get materias");
+};
+
+export const getMateriaById = (req = request, res = response) => {
   const id = req.params.id;
-  await Materia.findByIdAndDelete(id);
-  res.status(204).json();
+  res.json("get materia by " + id);
+};
+
+export const updateMateriaById = (req = request, res = response) => {
+  res.json("update materias by id");
+};
+
+export const deleteMateriaById = (req = request, res = response) => {
+  res.json("delete materias by id");
 };

@@ -5,6 +5,6 @@ import dbConnect from "./database";
 dbConnect();
 
 // Arranco el servidor
-app.listen(4000, () => {
-  console.log("Servidor escuchando en puerto 4000");
+app.listen(app.get("port"), () => {
+  console.log(`Servidor escuchando en puerto ${app.get("port")}`);
 });
