@@ -1,14 +1,23 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 04997bf9adb75b58a931b791ecbf753d128ef441
 import pkg from "../package.json";
+import config from "./config";
 
 <<<<<<< HEAD
 import config from "./config";
 // import de rutas
 =======
 import { createRoles } from "./libs/inicialSetup";
+<<<<<<< HEAD
 >>>>>>> a9435b39a69bfa8b02421bb28fee32f937429c7a
+=======
+
+>>>>>>> 04997bf9adb75b58a931b791ecbf753d128ef441
 import materiasRoutes from "./routes/materias.routers";
 import authRoutes from "./routes/auth.routers";
 import userRoutes from "./routes/user.routers";
@@ -27,8 +36,10 @@ createRoles();
 
 >>>>>>> a9435b39a69bfa8b02421bb28fee32f937429c7a
 // Express permite setear variables y luego recuperarlas
+app.set("port", config.API_PORT);
 app.set("pkg", pkg);
 // middlewares
+app.use(cors());
 app.use(express.json());
 <<<<<<< HEAD
 app.use(cors());

@@ -7,11 +7,13 @@ import {
   getMaterias,
   updateMateriaById,
 } from "../controllers/materias.controller";
-import { verifyToken, isAdmin } from "../middlewares";
+
+// import { verifyToken, isAdmin } from "../middlewares";
 
 const router = Router();
 
-router.get("/", [verifyToken, isAdmin], getMaterias);
+// router.get("/", [verifyToken, isAdmin], getMaterias);
+router.get("/", getMaterias);
 router.post("/", createMateria);
 router.get("/:id", getMateriaById);
 router.put("/:id", updateMateriaById);
