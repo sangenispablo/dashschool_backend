@@ -8,12 +8,12 @@ import {
   updateMateriaById,
 } from "../controllers/materias.controller";
 
-// import { verifyToken, isAdmin } from "../middlewares";
+import { verifyToken } from "../middlewares";
 
 const router = Router();
 
 // router.get("/", [verifyToken, isAdmin], getMaterias);
-router.get("/", getMaterias);
+router.get("/", verifyToken, getMaterias);
 router.post("/", createMateria);
 router.get("/:id", getMateriaById);
 router.put("/:id", updateMateriaById);

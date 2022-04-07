@@ -9,24 +9,14 @@ import Role from "../models/Role";
 import config from "../config";
 
 export const register = async (req = request, res = response) => {
-  const { email, password, roles } = req.body;
+  const { email, password } = req.body;
   const newUser = new User({
     email,
     password: await User.encryptPassword(password),
   });
-  // ahora pregunto por los roles
-  if (roles) {
-    const foundRoles = await Role.find({ name: { $in: roles } });
-    newUser.roles = foundRoles.map((role) => role._id);
-  } else {
-    const userRole = await Role.findOne({ name: "user" });
-    console.log(userRole._id);
-    newUser.roles = [userRole._id];
-  }
   const savedUser = await newUser.save();
   // Guardado el usuario en la BD ahora genero un JWT y se lo envio
   // la funcion recibe: 1- El contenido 2- Palabra secreta 3- Configuracion
-  // el token dura 6horas
   const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
     expiresIn: config.EXPIRE,
   });

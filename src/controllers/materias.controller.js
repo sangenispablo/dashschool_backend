@@ -8,12 +8,13 @@ export const createMateria = async (req = request, res = response) => {
     nombre,
     abreviatura,
   });
-  const materiaGuardada = "";
-  res.json("creando una materia en la BD");
+  const materiaGuardada = await nuevaMateria.save();
+  res.json(materiaGuardada);
 };
 
-export const getMaterias = (req = request, res = response) => {
-  res.json("get materias");
+export const getMaterias = async (req = request, res = response) => {
+  const materias = await Materia.find();
+  res.json(materias);
 };
 
 export const getMateriaById = (req = request, res = response) => {

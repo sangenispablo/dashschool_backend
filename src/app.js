@@ -10,7 +10,7 @@ import authRoutes from "./routes/auth.routers";
 import userRoutes from "./routes/user.routers";
 import materiasRoutes from "./routes/materias.routers";
 
-import { createRoles } from "./libs/initialSetup";
+import { createRoles, createSuperUser } from "./libs/initialSetup";
 
 // const para definir la version del api
 const apiVer = "/api/v1";
@@ -18,8 +18,9 @@ const apiVer = "/api/v1";
 // Creo la instancia del servidor express
 const app = express();
 
-// Creo los roles la primera vez
+// Creo los roles y el superUser la primera vez
 createRoles();
+createSuperUser();
 
 // Express permite setear variables y luego recuperarlas
 app.set("port", config.serverPort);

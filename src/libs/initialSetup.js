@@ -1,4 +1,5 @@
 import Role from "../models/Role";
+import User from "../models/User";
 
 export const createRoles = async () => {
   try {
@@ -15,6 +16,25 @@ export const createRoles = async () => {
       //new Role({ name: "secretario" }).save(),
     ]);
     console.log(values);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createSuperUser = async () => {
+  try {
+    const countUser = await User.estimatedDocumentCount();
+    if (countUser > 0) return;
+    // busco el rol admin
+    const adminRole = await Role.findOne({ name: "admin" });
+    // Como no hay usuarios me creo el super user
+    const superUser = new User({
+      email: "admin@gmail.com",
+      password: await User.encryptPassword("admin"),
+      roles: [adminRole],
+    });
+    saveSuperUser = await superUser.save();
+    console.log(saveSuperUser);
   } catch (error) {
     console.log(error);
   }
