@@ -2,7 +2,10 @@ import { request, response } from "express";
 import jwt from "jsonwebtoken";
 
 import config from "../config";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3b593b8d96e67f1ee1b6992be4660c893c055a5e
 import User from "../models/User";
 import Role from "../models/Role";
 
