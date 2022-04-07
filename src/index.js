@@ -6,5 +6,5 @@ dbConnect();
 
 // Arranco el servidor
 app.listen(app.get("port"), () => {
-  console.log(`Servidor escuchando en puerto 4000 ${app.get("port")}`);
+  console.log(`Servidor escuchando en el puerto ${app.get("port")}`);
 });

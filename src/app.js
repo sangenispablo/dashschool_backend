@@ -5,9 +5,6 @@ import cors from "cors";
 import pkg from "../package.json";
 import config from "./config";
 
-import pkg from "../package.json";
-import config from "./config";
-
 // import de rutas
 import authRoutes from "./routes/auth.routers";
 import userRoutes from "./routes/user.routers";
@@ -25,7 +22,7 @@ const app = express();
 createRoles();
 
 // Express permite setear variables y luego recuperarlas
-app.set("port", config.API_PORT);
+app.set("port", config.serverPort);
 app.set("pkg", pkg);
 
 // middlewares
