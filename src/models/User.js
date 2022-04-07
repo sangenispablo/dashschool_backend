@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import bcrypt from "bcryptjs";
 import { Schema, model } from "mongoose";
-=======
-import { Schema, model } from "mongoose";
-import bcrypt from "bcryptjs";
->>>>>>> 3b593b8d96e67f1ee1b6992be4660c893c055a5e
 
 const userSchema = new Schema(
   {

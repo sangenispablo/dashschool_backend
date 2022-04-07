@@ -1,5 +1,6 @@
 import { request, response } from "express";
-import Materia from "../models/materia";
+
+import Materia from "../models/Materia";
 
 export const createMateria = async (req = request, res = response) => {
   const { nombre, abreviatura } = req.body;
@@ -7,12 +8,8 @@ export const createMateria = async (req = request, res = response) => {
     nombre,
     abreviatura,
   });
-<<<<<<< HEAD
-  const materiaGuardada = res.json("creando una materia en la BD");
-=======
-  const materiaGuardada = 
+  const materiaGuardada = "";
   res.json("creando una materia en la BD");
->>>>>>> 3b593b8d96e67f1ee1b6992be4660c893c055a5e
 };
 
 export const getMaterias = (req = request, res = response) => {

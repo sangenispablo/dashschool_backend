@@ -1,18 +1,11 @@
 import { request, response } from "express";
 import jwt from "jsonwebtoken";
 
-<<<<<<< HEAD
 // importo el modelo de usuario y role
 import User from "../models/User";
 import Role from "../models/Role";
 
 // import config por que dentro tengo secret
-=======
-// importe el modelo de usuario y role
-import User from "../models/User";
-import Role from "../models/Role";
-// import secret
->>>>>>> 3b593b8d96e67f1ee1b6992be4660c893c055a5e
 import config from "../config";
 
 export const register = async (req = request, res = response) => {
@@ -50,14 +43,10 @@ export const login = async (req = request, res = response) => {
       .json({ token: null, message: "Credenciales invalidas" });
   }
   // Comparo las contraseñas
-<<<<<<< HEAD
   const matchPassword = await User.comparePassword(
     password,
     userFound.password
   );
-=======
-  const matchPassword = await User.comparePassword(password, userFound.password);
->>>>>>> 3b593b8d96e67f1ee1b6992be4660c893c055a5e
   if (!matchPassword) {
     return res
       .status(401)
