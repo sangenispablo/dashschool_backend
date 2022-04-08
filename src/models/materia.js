@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const materiaSchema = new Schema(
   {
@@ -19,4 +20,6 @@ const materiaSchema = new Schema(
   }
 );
 
+// cargo el plugin de mongoosePaginate
+materiaSchema.plugin(mongoosePaginate);
 export default model("Materia", materiaSchema);

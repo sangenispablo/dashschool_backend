@@ -1,8 +1,9 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-
 import pkg from "../package.json";
+
+// import de la variables de configuracion
 import config from "./config";
 
 // import de rutas
@@ -10,6 +11,7 @@ import authRoutes from "./routes/auth.routers";
 import userRoutes from "./routes/user.routers";
 import materiasRoutes from "./routes/materias.routers";
 
+// import para crear roles y el super user al inicio
 import { createRoles, createSuperUser } from "./libs/initialSetup";
 
 // const para definir la version del api
@@ -18,7 +20,7 @@ const apiVer = "/api/v1";
 // Creo la instancia del servidor express
 const app = express();
 
-// Creo los roles y el superUser la primera vez
+// Creo los roles y el superUser si no existen
 createRoles();
 createSuperUser();
 
@@ -27,7 +29,7 @@ app.set("port", config.serverPort);
 app.set("pkg", pkg);
 
 // middlewares
-app.use(cors());
+app.use(cors(config.corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
 
