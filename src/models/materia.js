@@ -22,4 +22,5 @@ const materiaSchema = new Schema(
 
 // cargo el plugin de mongoosePaginate
 materiaSchema.plugin(mongoosePaginate);
+// exporto el modelo y le llamo Materia
 export default model("Materia", materiaSchema);

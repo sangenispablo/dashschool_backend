@@ -14,10 +14,17 @@ const userSchema = new Schema(
     },
     roles: [
       {
-        ref: "Role",
         type: Schema.Types.ObjectId,
+        ref: "Role",
       },
     ],
+    profile: {
+      apellido: String,
+      nombre: String,
+      domicilio: String,
+      localidad: String,
+      telefonos: String
+    }
   },
   {
     timestamps: true,
