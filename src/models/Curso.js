@@ -8,7 +8,8 @@ const cursoSchema = new Schema(
     },
     nivel: {
       type: String,
-      enum: ["Inicial", "Primaria", "Secundaria"],
+      enum: ["inicial", "primaria", "secundaria"],
+      default: "secundaria",
     },
   },
   {

@@ -1,9 +1,8 @@
 import { request, response } from "express";
 import jwt from "jsonwebtoken";
 
-// importo el modelo de usuario y role
+// importo el modelo de usuario
 import User from "../models/User";
-import Role from "../models/Role";
 
 // import config por que dentro tengo secret
 import config from "../config";
@@ -26,7 +25,7 @@ export const register = async (req = request, res = response) => {
 export const login = async (req = request, res = response) => {
   const { email, password } = req.body;
   // Busco el usuario
-  const userFound = await User.findOne({ email: email }).populate("roles");
+  const userFound = await User.findOne({ email: email });
   if (!userFound) {
     return res
       .status(401)

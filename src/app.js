@@ -11,8 +11,8 @@ import authRoutes from "./routes/auth.routers";
 import userRoutes from "./routes/user.routers";
 import materiasRoutes from "./routes/materias.routers";
 
-// import para crear roles y el super user al inicio
-import { createRoles, createSuperUser } from "./libs/initialSetup";
+// import para crear el super user al inicio
+import { createSuperUser } from "./libs/initialSetup";
 
 // const para definir la version del api
 const apiVer = "/api/v1";
@@ -20,8 +20,7 @@ const apiVer = "/api/v1";
 // Creo la instancia del servidor express
 const app = express();
 
-// Creo los roles y el superUser si no existen
-createRoles();
+// Creo el superUser si no existe
 createSuperUser();
 
 // Express permite setear variables y luego recuperarlas

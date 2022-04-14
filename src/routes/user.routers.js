@@ -1,10 +1,11 @@
 import { Router } from "express";
 
-import { createUser } from "../controllers/users.controller";
+import { updateUser, changeRol } from "../controllers/users.controller";
 import { verifyToken, isAdmin } from "../middlewares";
 
 const router = Router();
 
-router.post("/", [verifyToken, isAdmin], createUser);
+router.post("/profile/:id", verifyToken, updateUser);
+router.post("/changerol/:id", [verifyToken, isAdmin], changeRol);
 
 export default router;

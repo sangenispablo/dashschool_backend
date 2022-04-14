@@ -12,19 +12,18 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    roles: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Role",
-      },
-    ],
+    rol: {
+      type: String,
+      enum: ["admin", "alumno", "profesor"],
+      default: "alumno",
+    },
     profile: {
       apellido: String,
       nombre: String,
       domicilio: String,
       localidad: String,
-      telefonos: String
-    }
+      telefonos: String,
+    },
   },
   {
     timestamps: true,

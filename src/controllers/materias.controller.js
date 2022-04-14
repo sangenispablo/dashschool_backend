@@ -1,40 +1,43 @@
 import { request, response } from "express";
 
-import { getPagination } from "../libs/getPagination";
-
 import Materia from "../models/Materia";
 
 export const createMateria = async (req = request, res = response) => {
   try {
     const nuevaMateria = new Materia(req.body);
     const materiaGuardada = await nuevaMateria.save();
-    res.json(materiaGuardada);
+    res.json({ ok: true, materia: materiaGuardada });
   } catch (error) {
-    res
-      .status(500)
-      .json({ msg: error.message || "Algo ocurrio mal en el servidor" });
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
   }
 };
 
 export const getMaterias = async (req = request, res = response) => {
   try {
-    const { page, size, nombre } = req.query;
+    const { nombre } = req.query;
     const condition = nombre
       ? {
           nombre: { $regex: new RegExp(nombre), $options: "i" },
         }
       : {};
-    console.log(condition);
-    const { limit, offset } = getPagination(page, size);
-    const materias = await Materia.paginate(condition, { limit, offset });
+    const materias = await Materia.find(condition);
     if (!materias) {
-      return res.status(404).json({ msg: "No se encontro documento" });
+      return res.status(404).json({
+        ok: false,
+        msg: "No existe una materia para ese id",
+      });
     }
-    res.json(materias);
+    res.json({ ok: true, materias });
   } catch (error) {
-    res
-      .status(500)
-      .json({ msg: error.message || "Algo ocurrio mal en el servidor" });
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
   }
 };
 
@@ -43,13 +46,18 @@ export const getMateriaById = async (req = request, res = response) => {
     const id = req.params.id;
     const materia = await Materia.findById(id);
     if (!materia) {
-      return res.status(404).json({ msg: "No se encontro documento" });
+      return res.status(404).json({
+        ok: false,
+        msg: "No existe una materia para ese id",
+      });
     }
-    res.json(materia);
+    res.json({ ok: true, materia });
   } catch (error) {
-    res
-      .status(500)
-      .json({ msg: error.message || "Algo ocurrio mal en el servidor" });
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
   }
 };
 
@@ -60,13 +68,18 @@ export const updateMateriaById = async (req = request, res = response) => {
       new: true,
     });
     if (!materiaUpdate) {
-      return res.status(404).json({ msg: "No se encontro documento" });
+      return res.status(404).json({
+        ok: false,
+        msg: "No existe una materia para ese id",
+      });
     }
-    res.json(materiaUpdate);
+    res.json({ ok: true, materia: materiaUpdate });
   } catch (error) {
-    res
-      .status(500)
-      .json({ msg: error.message || "Algo ocurrio mal en el servidor" });
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
   }
 };
 
@@ -75,12 +88,17 @@ export const deleteMateriaById = async (req = request, res = response) => {
     const id = req.params.id;
     const materiaDeleted = await Materia.findByIdAndDelete(id);
     if (!materiaDeleted) {
-      return res.status(404).json({ msg: "No se encontro documento" });
+      return res.status(404).json({
+        ok: false,
+        msg: "No existe una materia para ese id",
+      });
     }
-    res.json({ msg: `${id} se eliminó correctamente` });
+    res.json({ ok: true, msg: `${id} se eliminó correctamente` });
   } catch (error) {
-    res
-      .status(500)
-      .json({ msg: error.message || "Algo ocurrio mal en el servidor" });
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
   }
 };

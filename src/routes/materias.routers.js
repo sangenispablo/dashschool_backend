@@ -8,15 +8,16 @@ import {
   updateMateriaById,
 } from "../controllers/materias.controller";
 
-import { verifyToken } from "../middlewares";
+import { verifyToken, isAdmin } from "../middlewares";
 
 const router = Router();
 
-// router.get("/", [verifyToken, isAdmin], getMaterias);
-router.get("/", verifyToken, getMaterias);
-router.post("/", createMateria);
+router.use(verifyToken);
+
+router.get("/", getMaterias);
+router.post("/", isAdmin, createMateria);
 router.get("/:id", getMateriaById);
-router.put("/:id", updateMateriaById);
-router.delete("/:id", deleteMateriaById);
+router.put("/:id", isAdmin, updateMateriaById);
+router.delete("/:id", isAdmin, deleteMateriaById);
 
 export default router;

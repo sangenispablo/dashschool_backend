@@ -6,6 +6,6 @@ import { verifyToken, isAdmin, checkDuplicateEmail } from "../middlewares";
 const router = Router();
 
 router.post("/login", login);
-router.post("/register", verifyToken, isAdmin, checkDuplicateEmail, register);
+router.post("/register", checkDuplicateEmail, register);
 
 export default router;

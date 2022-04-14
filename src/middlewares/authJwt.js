@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 import config from "../config";
 import User from "../models/User";
-import Role from "../models/Role";
 
 export const verifyToken = async (req = request, res = response, next) => {
   try {
@@ -18,7 +17,7 @@ export const verifyToken = async (req = request, res = response, next) => {
     // con ese id busco el usuario para ver si existe
     const userFound = await User.findById(req.userId);
     if (!userFound) {
-      return res.status(404).json({ message: "No se encontro Usuario" });
+      return res.status(404).json({ message: "Id de token invalido" });
     }
     next();
   } catch (error) {
@@ -31,11 +30,27 @@ export const isAdmin = async (req = request, res = response, next) => {
   const userId = req.userId;
   // Busco el usuario
   const user = await User.findById(userId);
-  // Busco en Role los roles del usuario
-  const roles = await Role.find({ _id: { $in: user.roles } });
-  // Busco en roles si es que tiene el rol admin
-  const rolFind = roles.findIndex((rol) => rol.name === "admin");
-  if (rolFind === -1) {
+  if (user.rol != "admin") {
+    return res.status(401).json({ message: "Rol no autorizado" });
+  }
+  next();
+};
+
+export const isAlumno = async (req = request, res = response, next) => {
+  const userId = req.userId;
+  // Busco el usuario
+  const user = await User.findById(userId);
+  if (user.rol != "alumno") {
+    return res.status(401).json({ message: "Rol no autorizado" });
+  }
+  next();
+};
+
+export const isProfesor = async (req = request, res = response, next) => {
+  const userId = req.userId;
+  // Busco el usuario
+  const user = await User.findById(userId);
+  if (user.rol != "profesor") {
     return res.status(401).json({ message: "Rol no autorizado" });
   }
   next();
