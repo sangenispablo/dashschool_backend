@@ -4,9 +4,11 @@
   "description": "API Rest - dashschool",
   "main": "index.js",
   "scripts": {
-    "build": "babel src --out-dir build",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel src --out-dir build",
     "dev": "nodemon src/index.js --exec babel-node",
-    "start": "node build/index.js"
+    "build": "npm run clean && npm run build-babel",
+    "start": "npm run build && node ./build/index.js"
   },
   "keywords": [],
   "author": "Grupo 1 - Rolling Code",
