@@ -26,7 +26,6 @@ const app = express();
 createSuperUser();
 
 // Express permite setear variables y luego recuperarlas
-app.set("port", config.serverPort);
 app.set("pkg", pkg);
 
 // middlewares
