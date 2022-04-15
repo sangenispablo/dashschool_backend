@@ -5,27 +5,24 @@ const notaSchema = new Schema(
     alumno: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     profesor: {
       type: Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     curso: {
       type: Schema.Types.ObjectId,
       ref: "Curso",
+      required: true,
     },
     materia: {
       type: Schema.Types.ObjectId,
       ref: "Materia",
+      required: true,
     },
-    notas: [
-      {
-        valor: {
-          type: Number,
-          default: 1,
-        },
-      },
-    ],
+    notas: [Number],
   },
   {
     timestamps: true,

@@ -55,3 +55,17 @@ export const isProfesor = async (req = request, res = response, next) => {
   }
   next();
 };
+
+export const isAdminOrProfesor = async (
+  req = request,
+  res = response,
+  next
+) => {
+  const userId = req.userId;
+  // Busco el usuario
+  const user = await User.findById(userId);
+  if (user.rol != "profesor" && user.rol != "admin") {
+    return res.status(401).json({ message: "Rol no autorizado" });
+  }
+  next();
+};

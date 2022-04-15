@@ -10,6 +10,8 @@ import config from "./config";
 import authRoutes from "./routes/auth.routers";
 import userRoutes from "./routes/user.routers";
 import materiasRoutes from "./routes/materias.routers";
+import cursosRoutes from "./routes/cursos.routers";
+import notasRoutes from "./routes/notas.routers";
 
 // import para crear el super user al inicio
 import { createSuperUser } from "./libs/initialSetup";
@@ -43,7 +45,9 @@ app.get("/", (req, res) => {
 });
 
 // rutas del Rest API
+app.use(apiVer + "/notas", notasRoutes);
 app.use(apiVer + "/materias", materiasRoutes);
+app.use(apiVer + "/cursos", cursosRoutes);
 app.use(apiVer + "/auth", authRoutes);
 app.use(apiVer + "/users", userRoutes);
 

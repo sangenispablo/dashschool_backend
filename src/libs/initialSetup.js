@@ -10,8 +10,8 @@ export const createSuperUser = async () => {
       password: await User.encryptPassword("admin"),
       rol: "admin",
     });
-    saveSuperUser = await superUser.save();
-    console.log(saveSuperUser);
+    await superUser.save();
+    console.log("Super User creado");
   } catch (error) {
     console.log(error);
   }

@@ -45,3 +45,16 @@ export const changeRol = async (req = request, res = response) => {
     });
   }
 };
+
+export const listUser = async (req = request, res = response) => {
+  try {
+    const users = await User.find();
+    res.json({ ok: true, users });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
+};
