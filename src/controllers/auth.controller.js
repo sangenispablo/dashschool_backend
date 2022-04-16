@@ -42,8 +42,19 @@ export const login = async (req = request, res = response) => {
       .json({ token: null, message: "Credenciales invalidas" });
   }
   // Genero el token
-  const token = jwt.sign({ id: userFound._id }, config.SECRET, {
-    expiresIn: config.EXPIRE,
+  const token = jwt.sign(
+    {
+      id: userFound._id,
+      email: userFound.email,
+      rol: userFound.rol,
+      profile: userFound.profile,
+    },
+    config.SECRET,
+    {
+      expiresIn: config.EXPIRE,
+    }
+  );
+  res.json({
+    token    
   });
-  res.json({ token });
 };
