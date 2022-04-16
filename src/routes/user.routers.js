@@ -8,6 +8,6 @@ const router = Router();
 
 router.post("/profile/:id", verifyToken, updateUser);
 router.post("/changerol/:id", [verifyToken, isAdmin], changeRol);
-router.get("/list", [verifyToken, isAdmin], listUser);
+router.get("/list", verifyToken, listUser);
 
 export default router;
