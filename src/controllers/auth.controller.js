@@ -8,10 +8,11 @@ import User from "../models/User";
 import config from "../config";
 
 export const register = async (req = request, res = response) => {
-  const { email, password } = req.body;
+  const { email, password, profile } = req.body;
   const newUser = new User({
     email,
     password: await User.encryptPassword(password),
+    profile,
   });
   const savedUser = await newUser.save();
   // Guardado el usuario en la BD ahora genero un JWT y se lo envio
@@ -55,6 +56,6 @@ export const login = async (req = request, res = response) => {
     }
   );
   res.json({
-    token    
+    token,
   });
 };
