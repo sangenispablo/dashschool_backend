@@ -17,6 +17,10 @@ const userSchema = new Schema(
       enum: ["admin", "alumno", "profesor"],
       default: "alumno",
     },
+    status: {
+      type: Boolean,
+      default: false,
+    },
     profile: {
       apellido: String,
       nombre: String,

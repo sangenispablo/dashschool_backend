@@ -9,6 +9,7 @@ export const createSuperUser = async () => {
       email: "admin@gmail.com",
       password: await User.encryptPassword("admin"),
       rol: "admin",
+      status: true,
     });
     await superUser.save();
     console.log("Super User creado");

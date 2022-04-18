@@ -8,6 +8,7 @@ import User from "../models/User";
 import config from "../config";
 
 export const register = async (req = request, res = response) => {
+  console.log("register");
   const { email, password, profile } = req.body;
   const newUser = new User({
     email,
@@ -20,7 +21,7 @@ export const register = async (req = request, res = response) => {
   const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
     expiresIn: config.EXPIRE,
   });
-  res.json({ token });
+  res.json({ ok: true, token });
 };
 
 export const login = async (req = request, res = response) => {
@@ -48,6 +49,7 @@ export const login = async (req = request, res = response) => {
       id: userFound._id,
       email: userFound.email,
       rol: userFound.rol,
+      status: userFound.status,
       profile: userFound.profile,
     },
     config.SECRET,
