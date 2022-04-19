@@ -9,7 +9,7 @@ export const checkDuplicateEmail = async (
 ) => {
   const user = await User.findOne({ email: req.body.email });
   if (user) {
-    return res.status(400).json({ ok: false, message: "El email ya existe" });
+    return res.status(400).json({ ok: false, msg: "El email ya existe" });
   }
   next();
 };

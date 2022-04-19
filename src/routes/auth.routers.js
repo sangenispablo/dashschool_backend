@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { login, register } from "../controllers/auth.controller";
-import { verifyToken, isAdmin, checkDuplicateEmail } from "../middlewares";
+import { checkDuplicateEmail } from "../middlewares";
 
 const router = Router();
 

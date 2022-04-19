@@ -17,10 +17,17 @@ export const updateUser = async (req = request, res = response) => {
   // ahora modifico el perfil del usuario con los datos que me envian
   try {
     const user = await User.findByIdAndUpdate(userId, req.body, { new: true });
-    res.json({
-      ok: true,
-      user,
-    });
+    if (user) {
+      res.json({
+        ok: true,
+        user,
+      });
+    } else {
+      res.status(404).json({
+        ok: false,
+        msg: "El id del usuario no existe",
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -35,10 +42,17 @@ export const changeRol = async (req = request, res = response) => {
   const userId = req.params.id;
   try {
     const user = await User.findByIdAndUpdate(userId, req.body, { new: true });
-    res.json({
-      ok: true,
-      user,
-    });
+    if (user) {
+      res.json({
+        ok: true,
+        user,
+      });
+    } else {
+      res.status(404).json({
+        ok: false,
+        msg: "El id del usuario no existe",
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -67,17 +81,24 @@ export const deleteUser = async (req = request, res = response) => {
   const decode = jwt.verify(token, config.SECRET);
   const adminId = decode.id;
   if (userId === adminId) {
-    res.status(400).json({
+    res.status(401).json({
       ok: false,
       msg: "El administrador no puede eliminarse asi mismo",
     });
   }
   try {
     const user = await User.findByIdAndDelete(userId);
-    res.json({
-      ok: true,
-      user,
-    });
+    if (user) {
+      res.json({
+        ok: true,
+        user,
+      });
+    } else {
+      res.status(404).json({
+        ok: false,
+        msg: "El id del usuario no existe",
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({

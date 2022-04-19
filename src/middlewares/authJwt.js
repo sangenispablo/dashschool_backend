@@ -8,7 +8,7 @@ export const verifyToken = async (req = request, res = response, next) => {
   try {
     const token = req.headers["token"];
     if (!token) {
-      return res.status(401).json({ message: "No se envió token" });
+      return res.status(401).json({ ok: false, msg: "No se envió token" });
     }
     const decode = jwt.verify(token, config.SECRET);
     // Le pongo el id al request para que sirva a los otros middlewares
@@ -17,11 +17,13 @@ export const verifyToken = async (req = request, res = response, next) => {
     // con ese id busco el usuario para ver si existe
     const userFound = await User.findById(req.userId);
     if (!userFound) {
-      return res.status(404).json({ message: "Id de token invalido" });
+      return res
+        .status(404)
+        .json({ ok: false, msg: "Id de token invalido" });
     }
     next();
   } catch (error) {
-    return res.status(401).json({ message: "No autorizado" });
+    return res.status(401).json({ ok: false, msg: "Token invalido" });
   }
 };
 
@@ -31,7 +33,7 @@ export const isAdmin = async (req = request, res = response, next) => {
   // Busco el usuario
   const user = await User.findById(userId);
   if (user.rol != "admin") {
-    return res.status(401).json({ message: "Rol no autorizado" });
+    return res.status(401).json({ ok: false, msg: "Rol no autorizado" });
   }
   next();
 };
@@ -41,7 +43,7 @@ export const isAlumno = async (req = request, res = response, next) => {
   // Busco el usuario
   const user = await User.findById(userId);
   if (user.rol != "alumno") {
-    return res.status(401).json({ message: "Rol no autorizado" });
+    return res.status(401).json({ ok: false, msg: "Rol no autorizado" });
   }
   next();
 };
@@ -51,7 +53,7 @@ export const isProfesor = async (req = request, res = response, next) => {
   // Busco el usuario
   const user = await User.findById(userId);
   if (user.rol != "profesor") {
-    return res.status(401).json({ message: "Rol no autorizado" });
+    return res.status(401).json({ ok: false, msg: "Rol no autorizado" });
   }
   next();
 };
@@ -65,7 +67,7 @@ export const isAdminOrProfesor = async (
   // Busco el usuario
   const user = await User.findById(userId);
   if (user.rol != "profesor" && user.rol != "admin") {
-    return res.status(401).json({ message: "Rol no autorizado" });
+    return res.status(401).json({ ok: false, msg: "Rol no autorizado" });
   }
   next();
 };
